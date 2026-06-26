@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
@@ -10,6 +11,11 @@ module.exports = {
         'gfg-green': '#0F9D58',
         'gfg-dark': '#1a1a1a',
         'gfg-light': '#f8f9fa',
+        'mongodb-green': '#00ED64',
+        'mongodb-dark': '#001E2B',
+        'dark-bg': '#0B0F19',
+        'dark-card': '#151D30',
+        'dark-border': '#222F4C',
       },
       fontFamily: {
         'display': ['Sora', 'system-ui', 'sans-serif'],
@@ -19,6 +25,7 @@ module.exports = {
         'fade-up': 'fadeUp 0.6s ease-out forwards',
         'fade-in': 'fadeIn 0.6s ease-out forwards',
         'slide-right': 'slideRight 0.8s ease-out forwards',
+        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
       keyframes: {
         fadeUp: {
