@@ -220,7 +220,7 @@ export default function Home() {
                 </div>
               ) : (
                 <div className="p-6 text-center text-sm text-gray-500 dark:text-gray-400">
-                  No matching results found for <span className="font-bold">"{searchQuery}"</span>
+                  No matching results found for <span className="font-bold">&quot;{searchQuery}&quot;</span>
                 </div>
               )}
             </div>

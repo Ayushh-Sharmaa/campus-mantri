@@ -47,7 +47,7 @@ export default function Footer() {
 
           {/* Column 3: Contact & Connections */}
           <div className="space-y-4">
-            <h4 className="text-sm font-extrabold text-white uppercase tracking-wider">Let's Connect</h4>
+            <h4 className="text-sm font-extrabold text-white uppercase tracking-wider">Let&apos;s Connect</h4>
             <p className="text-xs text-gray-500 leading-relaxed">
               If you have any doubts regarding course progress sync or proof file validation, reach out immediately.
             </p>

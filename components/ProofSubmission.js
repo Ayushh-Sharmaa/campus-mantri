@@ -109,7 +109,7 @@ export default function ProofSubmission() {
         <div>
           <h4 className="text-sm font-bold text-blue-900 dark:text-blue-400">PDF Merging & Submission Instructions</h4>
           <p className="text-xs text-blue-800 dark:text-blue-300/80 leading-relaxed mt-1.5">
-            Take screenshots of both your GFG/MongoDB dashboard showing 100% completion AND your official badge certificate. Open any free PDF tool (like PDF24 or Smallpdf) and merge these image files into a single PDF document. Open the official Campus Mantri Dashboard, click on "Submit Proof" for this task, and upload the PDF file before <strong>28th July 2026</strong>.
+            Take screenshots of both your GFG/MongoDB dashboard showing 100% completion AND your official badge certificate. Open any free PDF tool (like PDF24 or Smallpdf) and merge these image files into a single PDF document. Open the official Campus Mantri Dashboard, click on &quot;Submit Proof&quot; for this task, and upload the PDF file before <strong>28th July 2026</strong>.
           </p>
         </div>
       </div>
