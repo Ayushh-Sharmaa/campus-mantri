@@ -84,14 +84,14 @@ export default function Sidebar({ onScrollToSection }) {
         </div>
 
         <div className="space-y-2">
-          <p className="text-xs font-bold text-gray-800 dark:text-white">
-            Welcome to Campus Mantri 2026
+          <p className="text-xs font-bold text-gray-800 dark:text-white line-clamp-2">
+            Hey Cabinets! 👋 - Cabinet Onboarding, Orientation & Goodies Criteria Update
           </p>
           <span className="text-[10px] text-gray-400 dark:text-gray-500 font-semibold block">
-            Posted: 25 June 2026
+            Posted: 26 June 2026
           </span>
           <p className="text-[11px] text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-3">
-            Dear Campus Mantris, Welcome to the GeeksforGeeks Campus Mantri Program 2026. Congratulations on becoming a Campus Mantri. We are delighted to have you as a part of our community and look forward to an exciting journey ahead. We will soon be conducting...
+            Congratulations! ❤️ From today onwards, you are not just Campus Mantris, you are the Cabinets of GeeksforGeeks. Tomorrow is our Orientation & Oath Ceremony...
           </p>
         </div>
 

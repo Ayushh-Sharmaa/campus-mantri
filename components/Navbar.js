@@ -127,7 +127,7 @@ export default function Navbar() {
   // Search Database
   const searchDatabase = [
     { type: 'Task', title: 'MongoDB Skill Badges Challenge', url: '/tasks', text: 'MongoDB Skill Badges Challenge 250 Points Active Due 28 July 2026 gfgcdn.com/tu/vc5/' },
-    { type: 'Announcement', title: 'Welcome to Campus Mantri 2026', url: '/announcements', text: 'Welcome to Campus Mantri 2026 Orientation session Oath ceremony Team GeeksforGeeks' },
+    { type: 'Announcement', title: 'Hey Cabinets! 👋 - Cabinet Onboarding, Orientation & Goodies Criteria Update', url: '/announcements', text: 'Hey Cabinets onboarding orientation goodies criteria congratulations tomorrow oath ceremony 4:00 PM IST GeeksforGeeks' },
     { type: 'Guide Step 1', title: 'Sign In / Register GFG', url: '/guide', text: 'Create or login to your GeeksforGeeks account official registration link visit website' },
     { type: 'Guide Step 2', title: 'Register for MongoDB', url: '/guide', text: 'Register for MongoDB learning paths coupon code form student developer' },
     { type: 'Guide Step 3', title: 'Choose Learning Path', url: '/guide', text: 'MongoDB Basics Shell CRUD Operators Data Modeling Schema Indexing Query Performance' },
