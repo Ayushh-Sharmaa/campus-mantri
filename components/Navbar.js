@@ -138,7 +138,7 @@ export default function Navbar() {
     { type: 'Resource', title: 'MongoDB Learning Portal Registry', url: '/resources', text: 'MongoDB Learning path registration free courses student registry Academy' },
     { type: 'FAQ', title: 'Is the program free?', url: '/resources', text: 'Collaboration between GFG and MongoDB is 100% free selected Campus Mantris' },
     { type: 'FAQ', title: 'How to claim my points?', url: '/resources', text: 'Screenshot MongoDB Dashboard course completion badge certificate merge single PDF upload GFG portal' },
-    { type: 'Proof', title: 'Proof Submission Guide', url: '/proof', text: 'Upload screenshots of course completion and skill badge in PDF format' }
+    { type: 'Proof', title: 'Proof Submission Guide', url: '/guide', text: 'Upload screenshots of course completion and skill badge in PDF format inside the task guide.' }
   ]
 
   const filteredResults = searchQuery
@@ -197,9 +197,6 @@ export default function Navbar() {
               </Link>
               <Link href="/guide" className="text-sm font-bold text-gray-650 dark:text-gray-355 hover:text-gfg-green dark:hover:text-emerald-455 transition-colors">
                 Task Guide
-              </Link>
-              <Link href="/proof" className="text-sm font-bold text-gray-650 dark:text-gray-305 hover:text-gfg-green dark:hover:text-emerald-455 transition-colors">
-                Proof Submission
               </Link>
               <Link href="/resources" className="text-sm font-bold text-gray-650 dark:text-gray-305 hover:text-gfg-green dark:hover:text-emerald-455 transition-colors">
                 Resources
@@ -292,13 +289,6 @@ export default function Navbar() {
               className="block text-sm font-bold text-gray-650 dark:text-gray-300 hover:text-gfg-green py-2 border-b border-gray-50 dark:border-dark-border/10"
             >
               Task Guide
-            </Link>
-            <Link
-              href="/proof"
-              onClick={() => setIsOpen(false)}
-              className="block text-sm font-bold text-gray-655 dark:text-gray-300 hover:text-gfg-green py-2 border-b border-gray-50 dark:border-dark-border/10"
-            >
-              Proof Submission
             </Link>
             <Link
               href="/resources"

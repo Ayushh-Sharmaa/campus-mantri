@@ -6,8 +6,10 @@ import Leaderboard from '../components/Leaderboard'
 import Timeline from '../components/Timeline'
 import Footer from '../components/Footer'
 import Sidebar from '../components/Sidebar'
+import { Award, ChevronDown } from 'lucide-react'
 
 export default function TasksPage() {
+  const [expandedTaskId, setExpandedTaskId] = useState(1) // MongoDB task is active by default
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [copied, setCopied] = useState(false)
   const [taskStatus, setTaskStatus] = useState('NOT_STARTED')
@@ -41,6 +43,17 @@ export default function TasksPage() {
     setTimeout(() => setCopied(false), 2000)
   }
 
+  const tasksList = [
+    {
+      id: 1,
+      title: 'MongoDB Skill Badges Challenge',
+      points: '250 Pts',
+      deadline: '28 July 2026',
+      status: 'Active',
+      description: 'Participate in the exclusive MongoDB Academy badge challenge. Complete modules, track deadlines, and prepare validation proof screenshots.',
+    }
+  ]
+
   return (
     <>
       <Head>
@@ -63,24 +76,69 @@ export default function TasksPage() {
               Active Opportunities
             </h1>
             <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 mt-2 max-w-xl">
-              Complete these tasks before their respective deadlines to claim points, GFG ambassador certificates, and developer badges.
+              Expand an active task below to view points ledger, dynamic countdown timers, region leaderboard, and roadmap steps.
             </p>
           </div>
 
           {/* Page Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Left Column - Active Task Components */}
-            <div className="lg:col-span-2 space-y-8">
-              <ActiveTask
-                isBookmarked={isBookmarked}
-                onToggleBookmark={toggleBookmark}
-                onShare={handleShare}
-              />
-              <Leaderboard
-                status={taskStatus}
-                onStatusChange={handleStatusChange}
-              />
-              <Timeline />
+            {/* Left Column - Active Task Components Accordion */}
+            <div className="lg:col-span-2 space-y-6">
+              
+              {tasksList.map((task) => {
+                const isExpanded = expandedTaskId === task.id
+                return (
+                  <div
+                    key={task.id}
+                    className="rounded-3xl border border-gray-200/80 dark:border-dark-border/40 bg-white dark:bg-dark-card shadow-sm overflow-hidden transition-all duration-300"
+                  >
+                    {/* Header bar */}
+                    <div
+                      onClick={() => setExpandedTaskId(isExpanded ? null : task.id)}
+                      className="p-6 sm:p-8 flex justify-between items-center cursor-pointer select-none hover:bg-gray-55/50 dark:hover:bg-dark-border/10 transition-colors"
+                    >
+                      <div className="flex items-center gap-4 text-left">
+                        <div className="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 text-gfg-green dark:text-emerald-400 flex items-center justify-center flex-shrink-0">
+                          <Award className="w-6 h-6" />
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="px-2.5 py-0.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold rounded uppercase">
+                              {task.status}
+                            </span>
+                            <span className="text-[10px] text-gray-450 dark:text-gray-550 font-bold uppercase tracking-wider">
+                              {task.points} • Deadline: {task.deadline}
+                            </span>
+                          </div>
+                          <h3 className="text-lg sm:text-xl font-extrabold text-gray-800 dark:text-white mt-1.5 leading-snug">
+                            {task.title}
+                          </h3>
+                        </div>
+                      </div>
+                      <div className="p-1.5 rounded-lg border border-gray-200 dark:border-dark-border/45 text-gray-500 dark:text-gray-400">
+                        {isExpanded ? <ChevronDown className="w-5 h-5 rotate-180 transition-transform" /> : <ChevronDown className="w-5 h-5 transition-transform" />}
+                      </div>
+                    </div>
+
+                    {/* Expanded Task Content */}
+                    {isExpanded && (
+                      <div className="p-6 sm:p-8 border-t border-gray-100 dark:border-dark-border/30 bg-gray-50/20 dark:bg-dark-border/5 space-y-8 animate-fade-in">
+                        <ActiveTask
+                          isBookmarked={isBookmarked}
+                          onToggleBookmark={toggleBookmark}
+                          onShare={handleShare}
+                        />
+                        <Leaderboard
+                          status={taskStatus}
+                          onStatusChange={handleStatusChange}
+                        />
+                        <Timeline />
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
+
             </div>
 
             {/* Right Column - Sidebars widgets */}

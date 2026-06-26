@@ -38,16 +38,7 @@ export default function Home() {
       icon: BookOpen,
       iconColor: 'text-blue-550 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40',
     },
-    {
-      title: 'Proof Submission',
-      badge: 'Validation',
-      subtitle: 'Checklist & Uploads',
-      description: 'Access the submission requirements checklist, prepare screenshots of your course dashboard and badge credential, and find GFG portal links.',
-      link: '/proof',
-      color: 'border-teal-200/80 hover:border-teal-500 dark:border-dark-border/40 dark:hover:border-teal-500',
-      icon: FileCheck,
-      iconColor: 'text-teal-600 dark:text-teal-400 bg-teal-50 dark:bg-teal-950/40',
-    },
+
     {
       title: 'Announcements',
       badge: 'Orientation',
@@ -126,7 +117,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 gap-8">
             {directoryCards.map((card, idx) => {
               const Icon = card.icon
               return (

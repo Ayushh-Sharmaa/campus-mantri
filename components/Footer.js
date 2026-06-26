@@ -37,7 +37,7 @@ export default function Footer() {
               <Link href="/announcements" className="hover:text-gfg-green dark:hover:text-emerald-450 transition-colors">Announcements</Link>
               <Link href="/tasks" className="hover:text-gfg-green dark:hover:text-emerald-450 transition-colors">Active Task</Link>
               <Link href="/guide" className="hover:text-gfg-green dark:hover:text-emerald-455 transition-colors">Task Guide</Link>
-              <Link href="/proof" className="hover:text-gfg-green dark:hover:text-emerald-450 transition-colors">Proof Submission</Link>
+              <Link href="/guide" className="hover:text-gfg-green dark:hover:text-emerald-450 transition-colors">Proof Submission</Link>
               <a href="https://campus-portal.geeksforgeeks.org/" target="_blank" rel="noopener noreferrer" className="hover:text-gfg-green dark:hover:text-emerald-400 transition-colors flex items-center gap-1">
                 Portal
                 <ExternalLink className="w-3 h-3" />

@@ -1,17 +1,29 @@
 import Head from 'next/head'
+import { useState } from 'react'
 import Navbar from '../components/Navbar'
 import InteractiveGuide from '../components/InteractiveGuide'
 import Sidebar from '../components/Sidebar'
 import Footer from '../components/Footer'
-import { AlertCircle } from 'lucide-react'
-import Link from 'next/link'
+import { BookOpen, ChevronDown, ChevronUp } from 'lucide-react'
 
 export default function GuidePage() {
+  const [expandedGuideId, setExpandedGuideId] = useState(1) // MongoDB is 1
+
+  const guidesList = [
+    {
+      id: 1,
+      title: 'MongoDB Challenge Onboarding Guide',
+      subtitle: '7 Steps • ~6.5 Hours Total • 250 Points',
+      status: 'Active',
+      description: 'Follow this step-by-step interactive stepper to register your GFG profile code, complete the MongoDB Academy lessons, and submit validation screenshots for auditing.',
+    }
+  ]
+
   return (
     <>
       <Head>
-        <title>MongoDB Task Guide - Campus Mantri Hub</title>
-        <meta name="description" content="A step-by-step task guide for the GeeksforGeeks Campus Mantri 2026 program and MongoDB training challenge." />
+        <title>Roadmap Guides - Campus Mantri Hub</title>
+        <meta name="description" content="Step-by-step task guides for the GeeksforGeeks Campus Mantri 2026 challenge requirements." />
       </Head>
 
       <Navbar />
@@ -23,55 +35,75 @@ export default function GuidePage() {
           {/* Header Fold */}
           <div className="mb-10 text-center sm:text-left">
             <span className="px-3 py-1 bg-blue-500/10 text-blue-650 dark:text-blue-400 text-xs font-bold rounded-full">
-              MongoDB Task Guide
+              Task Roadmaps
             </span>
             <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-800 dark:text-white mt-3">
-              Task Guide for MongoDB Challenge
+              Task Roadmap Guides
             </h1>
             <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 mt-2 max-w-xl">
-              Follow this step-by-step interactive stepper to complete the MongoDB Skill Badges Challenge and submit your proof.
+              Select an active task guide to open its interactive walkthrough, checklist verification, and embedded proof submission.
             </p>
           </div>
 
           {/* Grid Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Stepper column */}
+            {/* Guide Accordion Feed Column */}
             <div className="lg:col-span-2 space-y-6">
-              <InteractiveGuide />
+              
+              {guidesList.map((guide) => {
+                const isExpanded = expandedGuideId === guide.id
+                return (
+                  <div 
+                    key={guide.id} 
+                    className="rounded-3xl border border-gray-200/80 dark:border-dark-border/40 bg-white dark:bg-dark-card shadow-sm overflow-hidden transition-all duration-300"
+                  >
+                    {/* Header bar */}
+                    <div 
+                      onClick={() => setExpandedGuideId(isExpanded ? null : guide.id)}
+                      className="p-6 sm:p-8 flex justify-between items-center cursor-pointer select-none hover:bg-gray-55/50 dark:hover:bg-dark-border/10 transition-colors"
+                    >
+                      <div className="flex items-center gap-4 text-left">
+                        <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/40 text-blue-550 dark:text-blue-400 flex items-center justify-center flex-shrink-0">
+                          <BookOpen className="w-6 h-6" />
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="px-2.5 py-0.5 bg-blue-500/10 text-blue-655 dark:text-blue-400 text-[10px] font-bold rounded uppercase">
+                              {guide.status}
+                            </span>
+                            <span className="text-[10px] text-gray-450 dark:text-gray-500 font-bold uppercase tracking-wider">
+                              {guide.subtitle}
+                            </span>
+                          </div>
+                          <h3 className="text-lg sm:text-xl font-extrabold text-gray-800 dark:text-white mt-1.5 leading-snug">
+                            {guide.title}
+                          </h3>
+                        </div>
+                      </div>
+                      <div className="p-1.5 rounded-lg border border-gray-200 dark:border-dark-border/45 text-gray-500 dark:text-gray-400">
+                        {isExpanded ? <ChevronDown className="w-5 h-5 rotate-180 transition-transform" /> : <ChevronDown className="w-5 h-5 transition-transform" />}
+                      </div>
+                    </div>
 
-              {/* Extra visual warning card */}
-              <div className="p-6 rounded-3xl bg-amber-500/5 dark:bg-amber-950/10 border border-amber-500/20 text-left flex gap-4">
-                <AlertCircle className="w-6 h-6 text-amber-500 flex-shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="text-sm font-bold text-amber-850 dark:text-amber-400">Avoid Skipping Lessons</h4>
-                  <p className="text-xs text-gray-600 dark:text-gray-400 mt-1 leading-relaxed">
-                    MongoDB academy API monitors the playback velocity of each lecture page. Skipping slides or fast forwarding lessons will prevent the badge credentials from generating in your final Academy profile tab.
-                  </p>
-                </div>
-              </div>
+                    {/* Expandable Stepper Wrapper */}
+                    {isExpanded && (
+                      <div className="p-6 sm:p-8 border-t border-gray-100 dark:border-dark-border/30 bg-gray-50/20 dark:bg-dark-border/5 space-y-6 animate-fade-in">
+                        <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                          {guide.description}
+                        </p>
+                        <div className="border-t border-gray-150/80 dark:border-dark-border/40 pt-6">
+                          <InteractiveGuide />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
+              
             </div>
 
             {/* Sidebar column */}
-            <div className="lg:col-span-1 space-y-6">
-              {/* Quick tip widget */}
-              <div className="relative overflow-hidden rounded-3xl border border-gray-200/80 dark:border-dark-border/40 bg-white dark:bg-dark-card p-6 shadow-sm">
-                <h4 className="text-sm font-extrabold text-gray-800 dark:text-white uppercase tracking-wider mb-3">Onboarding Tips</h4>
-                <ul className="space-y-3 text-xs text-gray-655 dark:text-gray-405 leading-relaxed">
-                  <li className="flex gap-2">
-                    <span className="text-gfg-green font-bold">1.</span>
-                    <span>Use a single consistent email for both GFG and MongoDB Academy registries.</span>
-                  </li>
-                  <li className="flex gap-2">
-                    <span className="text-gfg-green font-bold">2.</span>
-                    <span>Ensure you capture screenshots in high definition to avoid PDF validation rejections.</span>
-                  </li>
-                  <li className="flex gap-2">
-                    <span className="text-gfg-green font-bold">3.</span>
-                    <span>Check out the active countdown timer on the <Link href="/tasks" className="text-gfg-green hover:underline">Active Tasks page</Link> to submit on time.</span>
-                  </li>
-                </ul>
-              </div>
-
+            <div className="lg:col-span-1">
               <div className="sticky top-24">
                 <Sidebar onScrollToSection={(id) => {
                   if (id === 'tasks') window.location.href = '/tasks'

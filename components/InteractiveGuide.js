@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Check, ChevronRight, ChevronLeft, Eye, Award, Monitor, Play, BookOpen, AlertTriangle, Sparkles, ExternalLink } from 'lucide-react'
+import ProofSubmission from './ProofSubmission'
 
 export default function InteractiveGuide() {
   const [activeStep, setActiveStep] = useState(0)
@@ -253,7 +254,7 @@ export default function InteractiveGuide() {
             </div>
 
             <h4 className="text-xl font-bold text-gray-800 dark:text-white mb-2">Congratulations!</h4>
-            <p className="text-sm text-gray-650 dark:text-gray-300 max-w-[320px] mx-auto leading-relaxed">
+            <p className="text-sm text-gray-650 dark:text-gray-305 max-w-[320px] mx-auto leading-relaxed">
               You have unlocked your MongoDB Skill Badge! Save a high-resolution screenshot of the badge for your Campus Mantri submission.
             </p>
             
@@ -265,6 +266,16 @@ export default function InteractiveGuide() {
               Celebrate Again!
             </button>
           </div>
+        </div>
+      ),
+    },
+    {
+      title: 'Submit Verification Proof',
+      description: 'Check off verification screenshots and upload to the GFG portal.',
+      estimatedTime: '5 Mins',
+      details: (
+        <div className="space-y-4">
+          <ProofSubmission />
         </div>
       ),
     },
