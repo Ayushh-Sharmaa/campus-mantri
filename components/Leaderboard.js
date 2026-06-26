@@ -36,12 +36,19 @@ export default function Leaderboard({ status, onStatusChange }) {
     <div id="leaderboard" className="space-y-6">
       {/* 1. Point Tracker Ledger Card */}
       <div className="rounded-3xl border border-gray-200/80 dark:border-dark-border/40 bg-white dark:bg-dark-card p-6 sm:p-8 shadow-sm">
-        <span className="px-3 py-1 bg-gfg-green/10 text-gfg-green dark:text-emerald-400 text-xs font-bold rounded-full">
-          Progress Ledger
-        </span>
-        <h3 className="text-2xl font-extrabold text-gray-800 dark:text-white mt-2 mb-6">
-          Personal Points Tracker
-        </h3>
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-6">
+          <div>
+            <span className="px-3 py-1 bg-gfg-green/10 text-gfg-green dark:text-emerald-400 text-xs font-bold rounded-full">
+              Progress Ledger
+            </span>
+            <h3 className="text-2xl font-extrabold text-gray-800 dark:text-white mt-2">
+              Personal Points Tracker
+            </h3>
+          </div>
+          <span className="text-[10px] text-gray-400 dark:text-gray-500 font-bold uppercase tracking-wider bg-gray-50 dark:bg-dark-border/40 px-2.5 py-1 rounded-lg">
+            Updates every 24 hr
+          </span>
+        </div>
 
         {/* Dynamic points indicators */}
         <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-8">
@@ -121,7 +128,7 @@ export default function Leaderboard({ status, onStatusChange }) {
 
       {/* 2. Campus Leaderboard Widget */}
       <div className="rounded-3xl border border-gray-200/80 dark:border-dark-border/40 bg-white dark:bg-dark-card p-6 sm:p-8 shadow-sm">
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
           <div>
             <span className="px-3 py-1 bg-gfg-green/10 text-gfg-green dark:text-emerald-400 text-xs font-bold rounded-full">
               Region Rankings
@@ -130,9 +137,14 @@ export default function Leaderboard({ status, onStatusChange }) {
               Campus Leaderboard
             </h3>
           </div>
-          <div className="text-right">
-            <span className="text-[10px] text-gray-400 dark:text-gray-500 font-bold uppercase block">YOUR RANK</span>
-            <span className="text-base font-extrabold text-gfg-green dark:text-emerald-400">#{userRank} of 5</span>
+          <div className="flex items-center gap-4 text-right">
+            <span className="text-[10px] text-gray-400 dark:text-gray-500 font-bold uppercase tracking-wider bg-gray-50 dark:bg-dark-border/40 px-2.5 py-1 rounded-lg block">
+              Updates every 24 hr
+            </span>
+            <div>
+              <span className="text-[10px] text-gray-400 dark:text-gray-500 font-bold uppercase block">YOUR RANK</span>
+              <span className="text-base font-extrabold text-gfg-green dark:text-emerald-400">#{userRank} of 5</span>
+            </div>
           </div>
         </div>
 

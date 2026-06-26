@@ -103,6 +103,14 @@ export default function Sidebar({ onScrollToSection }) {
           <ArrowUpRight className="w-3.5 h-3.5" />
         </button>
       </div>
+
+      {/* Sync Status Note */}
+      <div className="p-4 rounded-3xl border border-dashed border-gray-200 dark:border-dark-border/40 bg-white/40 dark:bg-dark-card/40 text-center flex items-center justify-center gap-2">
+        <span className="w-1.5 h-1.5 rounded-full bg-gfg-green dark:bg-emerald-400 animate-ping"></span>
+        <span className="text-[11px] font-bold text-gray-500 dark:text-gray-400">
+          Hub Sync: Updates every 24 hours
+        </span>
+      </div>
     </div>
   )
 }
