@@ -12,6 +12,9 @@ export default function Navbar() {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
 
+  // GFG Follow Popup State
+  const [showFollowPopup, setShowFollowPopup] = useState(false)
+
   useEffect(() => {
     // 1. Scroll listener
     const handleScroll = () => {
@@ -42,6 +45,29 @@ export default function Navbar() {
       }
     }
     window.addEventListener('keydown', handleKeyDown)
+
+    // 4. Follow popup logic
+    const followed = localStorage.getItem('gfg_followed') === 'true'
+    if (!followed) {
+      const remindLater = localStorage.getItem('gfg_remind_later') === 'true'
+      const lastShown = localStorage.getItem('gfg_popup_last_shown')
+      const now = Date.now()
+      const sevenDaysInMs = 7 * 24 * 60 * 60 * 1000
+      const shownThisSession = sessionStorage.getItem('gfg_popup_shown_this_session') === 'true'
+
+      if (!shownThisSession) {
+        if (remindLater || !lastShown || (now - Number(lastShown)) > sevenDaysInMs) {
+          const popupTimer = setTimeout(() => {
+            setShowFollowPopup(true)
+            localStorage.setItem('gfg_popup_last_shown', String(now))
+            sessionStorage.setItem('gfg_popup_shown_this_session', 'true')
+          }, 2000)
+          return () => {
+            clearTimeout(popupTimer)
+          }
+        }
+      }
+    }
 
     return () => {
       window.removeEventListener('scroll', handleScroll)
@@ -81,6 +107,21 @@ export default function Navbar() {
     } else {
       copyToClipboard()
     }
+  }
+
+  const handleClosePopup = () => {
+    setShowFollowPopup(false)
+  }
+
+  const handleAlreadyFollowed = () => {
+    localStorage.setItem('gfg_followed', 'true')
+    localStorage.removeItem('gfg_remind_later')
+    setShowFollowPopup(false)
+  }
+
+  const handleRemindLater = () => {
+    localStorage.setItem('gfg_remind_later', 'true')
+    setShowFollowPopup(false)
   }
 
   // Search Database
@@ -148,19 +189,19 @@ export default function Navbar() {
 
             {/* Desktop Links */}
             <div className="hidden md:flex items-center gap-6">
-              <Link href="/announcements" className="text-sm font-bold text-gray-650 dark:text-gray-305 hover:text-gfg-green dark:hover:text-emerald-450 transition-colors">
+              <Link href="/announcements" className="text-sm font-bold text-gray-650 dark:text-gray-305 hover:text-gfg-green dark:hover:text-emerald-455 transition-colors">
                 Announcements
               </Link>
-              <Link href="/tasks" className="text-sm font-bold text-gray-655 dark:text-gray-305 hover:text-gfg-green dark:hover:text-emerald-450 transition-colors">
+              <Link href="/tasks" className="text-sm font-bold text-gray-655 dark:text-gray-305 hover:text-gfg-green dark:hover:text-emerald-455 transition-colors">
                 Active Task
               </Link>
-              <Link href="/guide" className="text-sm font-bold text-gray-650 dark:text-gray-355 hover:text-gfg-green dark:hover:text-emerald-450 transition-colors">
+              <Link href="/guide" className="text-sm font-bold text-gray-650 dark:text-gray-355 hover:text-gfg-green dark:hover:text-emerald-455 transition-colors">
                 Task Guide
               </Link>
-              <Link href="/proof" className="text-sm font-bold text-gray-650 dark:text-gray-305 hover:text-gfg-green dark:hover:text-emerald-450 transition-colors">
+              <Link href="/proof" className="text-sm font-bold text-gray-650 dark:text-gray-305 hover:text-gfg-green dark:hover:text-emerald-455 transition-colors">
                 Proof Submission
               </Link>
-              <Link href="/resources" className="text-sm font-bold text-gray-650 dark:text-gray-305 hover:text-gfg-green dark:hover:text-emerald-450 transition-colors">
+              <Link href="/resources" className="text-sm font-bold text-gray-650 dark:text-gray-305 hover:text-gfg-green dark:hover:text-emerald-455 transition-colors">
                 Resources
               </Link>
             </div>
@@ -170,7 +211,7 @@ export default function Navbar() {
               {/* Search Trigger */}
               <button
                 onClick={() => setIsSearchOpen(true)}
-                className="p-2 bg-gray-55 hover:bg-gray-100 dark:bg-dark-border/20 dark:hover:bg-dark-border/40 text-gray-500 dark:text-gray-300 border border-gray-100 dark:border-dark-border/30 rounded-xl transition-all"
+                className="p-2 bg-gray-55 hover:bg-gray-100 dark:bg-dark-border/20 dark:hover:bg-dark-border/40 text-gray-550 dark:text-gray-300 border border-gray-100 dark:border-dark-border/30 rounded-xl transition-all"
                 title="Search Hub (Cmd+K)"
               >
                 <Search className="w-4 h-4" />
@@ -179,7 +220,7 @@ export default function Navbar() {
               {/* Theme Toggle */}
               <button
                 onClick={toggleDarkMode}
-                className="p-2 bg-gray-55 hover:bg-gray-100 dark:bg-dark-border/20 dark:hover:bg-dark-border/40 text-gray-500 dark:text-gray-300 border border-gray-100 dark:border-dark-border/30 rounded-xl transition-all"
+                className="p-2 bg-gray-55 hover:bg-gray-100 dark:bg-dark-border/20 dark:hover:bg-dark-border/40 text-gray-550 dark:text-gray-300 border border-gray-100 dark:border-dark-border/30 rounded-xl transition-all"
                 title={isDarkMode ? 'Light Mode' : 'Dark Mode'}
               >
                 {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
@@ -255,7 +296,7 @@ export default function Navbar() {
             <Link
               href="/proof"
               onClick={() => setIsOpen(false)}
-              className="block text-sm font-bold text-gray-650 dark:text-gray-300 hover:text-gfg-green py-2 border-b border-gray-50 dark:border-dark-border/10"
+              className="block text-sm font-bold text-gray-655 dark:text-gray-300 hover:text-gfg-green py-2 border-b border-gray-50 dark:border-dark-border/10"
             >
               Proof Submission
             </Link>
@@ -270,7 +311,7 @@ export default function Navbar() {
             <div className="pt-4 flex gap-3">
               <button
                 onClick={handleShare}
-                className="flex-1 py-2.5 bg-gray-50 dark:bg-dark-border/30 border border-gray-200 dark:border-dark-border/50 rounded-xl text-xs font-bold text-gray-700 dark:text-gray-200 flex items-center justify-center gap-1.5"
+                className="flex-1 py-2.5 bg-gray-55 dark:bg-dark-border/30 border border-gray-200 dark:border-dark-border/50 rounded-xl text-xs font-bold text-gray-700 dark:text-gray-200 flex items-center justify-center gap-1.5"
               >
                 {copied ? <Check className="w-4 h-4 text-gfg-green" /> : <Share2 className="w-4 h-4" />}
                 {copied ? 'Copied' : 'Share'}
@@ -315,7 +356,7 @@ export default function Navbar() {
 
             <div className="max-h-[300px] overflow-y-auto p-2">
               {searchQuery === '' ? (
-                <div className="p-6 text-center text-xs text-gray-450 dark:text-gray-500 font-bold uppercase tracking-wider">
+                <div className="p-6 text-center text-xs text-gray-455 dark:text-gray-500 font-bold uppercase tracking-wider">
                   Type to search...
                 </div>
               ) : filteredResults.length > 0 ? (
@@ -352,6 +393,64 @@ export default function Navbar() {
             <div className="p-3 bg-gray-50/50 dark:bg-dark-border/10 border-t border-gray-100 dark:border-dark-border/30 flex justify-between text-[10px] text-gray-450 dark:text-gray-500 font-bold uppercase px-4">
               <span>ESC to close</span>
               <span>Command Palette</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* GFG Follow Toast Popup */}
+      {showFollowPopup && (
+        <div className="fixed bottom-6 right-6 z-50 max-w-sm w-full bg-white dark:bg-dark-card border border-gray-150 dark:border-dark-border/60 rounded-3xl p-6 shadow-2xl animate-fade-up backdrop-blur-md">
+          <div className="flex justify-between items-start gap-4 mb-3">
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-gfg-green to-emerald-600 flex items-center justify-center text-white">
+                <Terminal className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="text-sm font-bold text-gray-850 dark:text-white leading-none">
+                  Support Ayush Sharma
+                </h4>
+                <p className="text-[10px] text-gfg-green dark:text-emerald-400 font-bold uppercase mt-1 tracking-wider">
+                  Campus Mantri 2026
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={handleClosePopup}
+              className="p-1 text-gray-450 hover:text-gray-650 dark:hover:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-dark-border/20 transition-all"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+
+          <p className="text-xs text-gray-605 dark:text-gray-300 leading-relaxed mb-4">
+            Please follow my profile on GeeksforGeeks to support my ambassador activities and stay updated with my task checklists and code solutions!
+          </p>
+
+          <div className="space-y-2">
+            <a
+              href="https://www.geeksforgeeks.org/profile/cmayush"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleAlreadyFollowed}
+              className="w-full py-2.5 bg-gfg-green hover:bg-emerald-600 text-white rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-sm"
+            >
+              Follow @cmayush
+              <Check className="w-3.5 h-3.5" />
+            </a>
+            <div className="flex gap-2 pt-1">
+              <button
+                onClick={handleAlreadyFollowed}
+                className="flex-1 py-2 border border-gray-200 dark:border-dark-border/60 hover:bg-gray-50 dark:hover:bg-dark-border/25 text-gray-700 dark:text-gray-300 rounded-xl text-[10px] sm:text-xs font-semibold transition-all text-center"
+              >
+                Already Followed
+              </button>
+              <button
+                onClick={handleRemindLater}
+                className="flex-1 py-2 border border-gray-200 dark:border-dark-border/60 hover:bg-gray-50 dark:hover:bg-dark-border/25 text-gray-400 dark:text-gray-500 rounded-xl text-[10px] sm:text-xs font-semibold transition-all text-center"
+              >
+                Remind Later
+              </button>
             </div>
           </div>
         </div>
