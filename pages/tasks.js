@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { useState, useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import ActiveTask from '../components/ActiveTask'
+import Leaderboard from '../components/Leaderboard'
 import ProofSubmission from '../components/ProofSubmission'
 import Timeline from '../components/Timeline'
 import Footer from '../components/Footer'
@@ -15,6 +16,7 @@ export default function TasksPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [taskStatus, setTaskStatus] = useState('NOT_STARTED')
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme')
@@ -31,7 +33,17 @@ export default function TasksPage() {
     if (savedBookmark === 'true') {
       setIsBookmarked(true)
     }
+
+    const savedStatus = localStorage.getItem('task_status')
+    if (savedStatus) {
+      setTaskStatus(savedStatus)
+    }
   }, [])
+
+  const handleStatusChange = (newStatus) => {
+    setTaskStatus(newStatus)
+    localStorage.setItem('task_status', newStatus)
+  }
 
   const toggleDarkMode = () => {
     if (isDarkMode) {
@@ -171,6 +183,10 @@ export default function TasksPage() {
                 isBookmarked={isBookmarked}
                 onToggleBookmark={toggleBookmark}
                 onShare={handleShare}
+              />
+              <Leaderboard
+                status={taskStatus}
+                onStatusChange={handleStatusChange}
               />
               <ProofSubmission />
               <Timeline />
