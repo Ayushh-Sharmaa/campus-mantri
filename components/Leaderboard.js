@@ -51,35 +51,35 @@ export default function Leaderboard({ status, onStatusChange }) {
         </div>
 
         {/* Dynamic points indicators */}
-        <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-8">
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-8">
           {/* Potential */}
-          <div className="p-4 rounded-2xl bg-gray-50/50 dark:bg-dark-border/10 border border-gray-100 dark:border-dark-border/20 text-center relative overflow-hidden group">
-            <span className="text-[10px] text-gray-400 dark:text-gray-500 font-bold uppercase tracking-wider block mb-1">
+          <div className="p-3 sm:p-4 rounded-2xl bg-gray-50/50 dark:bg-dark-border/10 border border-gray-100 dark:border-dark-border/20 text-center relative overflow-hidden group">
+            <span className="text-[10px] text-gray-400 dark:text-gray-550 font-bold uppercase tracking-wider block mb-1">
               Potential
             </span>
-            <div className={`text-xl sm:text-2xl font-extrabold transition-colors ${potential > 0 ? 'text-gray-800 dark:text-white' : 'text-gray-300 dark:text-gray-600'}`}>
+            <div className={`text-xs sm:text-lg md:text-2xl font-extrabold transition-colors ${potential > 0 ? 'text-gray-800 dark:text-white' : 'text-gray-300 dark:text-gray-600'}`}>
               {potential} pts
             </div>
             <span className="text-[9px] text-gray-400 dark:text-gray-500 font-medium block mt-1">Not Started</span>
           </div>
 
           {/* Pending */}
-          <div className="p-4 rounded-2xl bg-amber-500/5 dark:bg-amber-950/5 border border-amber-500/10 text-center relative overflow-hidden group">
+          <div className="p-3 sm:p-4 rounded-2xl bg-amber-500/5 dark:bg-amber-950/5 border border-amber-500/10 text-center relative overflow-hidden group">
             <span className="text-[10px] text-amber-600 dark:text-amber-500 font-bold uppercase tracking-wider block mb-1">
               Pending
             </span>
-            <div className={`text-xl sm:text-2xl font-extrabold transition-colors ${pending > 0 ? 'text-amber-500 animate-pulse' : 'text-gray-300 dark:text-gray-600'}`}>
+            <div className={`text-xs sm:text-lg md:text-2xl font-extrabold transition-colors ${pending > 0 ? 'text-amber-500 animate-pulse' : 'text-gray-300 dark:text-gray-600'}`}>
               {pending} pts
             </div>
             <span className="text-[9px] text-amber-500/70 dark:text-amber-400/70 font-medium block mt-1">Submitted</span>
           </div>
 
           {/* Completed */}
-          <div className="p-4 rounded-2xl bg-gfg-green/5 dark:bg-emerald-950/10 border border-gfg-green/10 text-center relative overflow-hidden group">
+          <div className="p-3 sm:p-4 rounded-2xl bg-gfg-green/5 dark:bg-emerald-950/10 border border-gfg-green/10 text-center relative overflow-hidden group">
             <span className="text-[10px] text-gfg-green dark:text-emerald-400 font-bold uppercase tracking-wider block mb-1">
               Earned
             </span>
-            <div className={`text-xl sm:text-2xl font-extrabold transition-colors ${earned > 0 ? 'text-gfg-green dark:text-emerald-400' : 'text-gray-300 dark:text-gray-600'}`}>
+            <div className={`text-xs sm:text-lg md:text-2xl font-extrabold transition-colors ${earned > 0 ? 'text-gfg-green dark:text-emerald-400' : 'text-gray-300 dark:text-gray-600'}`}>
               {earned} pts
             </div>
             <span className="text-[9px] text-gfg-green/70 dark:text-emerald-400/70 font-medium block mt-1">Completed</span>
@@ -150,45 +150,43 @@ export default function Leaderboard({ status, onStatusChange }) {
 
         {/* Leaderboard Table List */}
         <div className="space-y-3.5">
-          {sortedLeaderboard.map((member, index) => (
-            <div
-              key={index}
-              className={`p-3.5 rounded-2xl border transition-all flex items-center justify-between ${
-                member.isUser
-                  ? 'bg-gfg-green/5 border-gfg-green/30 dark:bg-emerald-950/20 dark:border-emerald-500/20 shadow-sm'
-                  : 'bg-gray-50/20 dark:bg-dark-border/5 border-gray-100 dark:border-dark-border/20'
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                {/* Rank placement badge */}
-                <div className={`w-6 h-6 rounded-lg font-bold text-xs flex items-center justify-center ${
-                  index === 0 ? 'bg-yellow-400 text-white' :
-                  index === 1 ? 'bg-gray-300 text-gray-700' :
-                  index === 2 ? 'bg-amber-600 text-white' :
-                  'bg-gray-100 dark:bg-dark-border text-gray-500'
-                }`}>
-                  {index + 1}
+          {sortedLeaderboard
+            .filter((member) => member.isUser)
+            .map((member, index) => (
+              <div
+                key={index}
+                className="p-3.5 rounded-2xl border transition-all flex items-center justify-between bg-gfg-green/5 border-gfg-green/30 dark:bg-emerald-950/20 dark:border-emerald-500/20 shadow-sm"
+              >
+                <div className="flex items-center gap-3">
+                  {/* Rank placement badge */}
+                  <div className={`w-6 h-6 rounded-lg font-bold text-xs flex items-center justify-center ${
+                    userRank === 1 ? 'bg-yellow-400 text-white' :
+                    userRank === 2 ? 'bg-gray-300 text-gray-700' :
+                    userRank === 3 ? 'bg-amber-600 text-white' :
+                    'bg-gray-100 dark:bg-dark-border text-gray-500'
+                  }`}>
+                    {userRank}
+                  </div>
+                  
+                  <span className="text-lg">{member.avatar}</span>
+                  
+                  <div>
+                    <span className="text-xs font-bold text-gray-850 dark:text-white">
+                      {member.name}
+                    </span>
+                    <span className="text-[9px] text-gray-400 dark:text-gray-500 block">
+                      Status: {member.status.replace('_', ' ')}
+                    </span>
+                  </div>
                 </div>
-                
-                <span className="text-lg">{member.avatar}</span>
-                
-                <div>
-                  <span className={`text-xs font-bold ${member.isUser ? 'text-gray-850 dark:text-white' : 'text-gray-700 dark:text-gray-300'}`}>
-                    {member.name}
-                  </span>
-                  <span className="text-[9px] text-gray-400 dark:text-gray-500 block">
-                    Status: {member.status.replace('_', ' ')}
-                  </span>
-                </div>
-              </div>
 
-              <div className="text-right">
-                <span className={`text-sm font-extrabold ${member.isUser ? 'text-gfg-green dark:text-emerald-450' : 'text-gray-700 dark:text-gray-300'}`}>
-                  {member.earned} pts
-                </span>
+                <div className="text-right">
+                  <span className="text-sm font-extrabold text-gfg-green dark:text-emerald-455">
+                    {member.earned} pts
+                  </span>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
     </div>

@@ -278,10 +278,10 @@ export default function InteractiveGuide() {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
         <div>
           <span className="px-3 py-1 bg-gfg-green/10 text-gfg-green dark:text-emerald-400 text-xs font-bold rounded-full">
-            Interactive Roadmap
+            MongoDB Task Guide
           </span>
           <h3 className="text-2xl font-extrabold text-gray-800 dark:text-white mt-2">
-            Learning & Onboarding Guide
+            Task Guide for MongoDB Challenge
           </h3>
         </div>
         <div className="text-right">
@@ -315,7 +315,7 @@ export default function InteractiveGuide() {
           <button
             key={idx}
             onClick={() => setActiveStep(idx)}
-            className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm relative z-10 border transition-all ${
+            className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm relative z-10 border transition-all ${
               idx < activeStep
                 ? 'bg-gfg-green border-gfg-green text-white'
                 : idx === activeStep

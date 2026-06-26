@@ -31,7 +31,7 @@ export default function Hero({ onScrollToSection }) {
         {/* Subtitle list descriptors */}
         <p className="text-base sm:text-xl text-gray-600 dark:text-gray-300 mb-10 max-w-3xl mx-auto leading-relaxed">
           Everything a Campus Mantri needs in one place. Review official announcements, 
-          track active developer challenges, follow step-by-step onboarding roadmaps, and submit proofs for rewards.
+          track active developer challenges, follow the MongoDB task guides, and submit proofs for rewards.
         </p>
 
         {/* Call to Actions (CTAs) */}

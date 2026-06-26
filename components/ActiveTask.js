@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Calendar, Clock, Award, ShieldAlert, CheckCircle, ExternalLink, Bookmark, Share2 } from 'lucide-react'
+import Link from 'next/link'
 
 export default function ActiveTask({ isBookmarked, onToggleBookmark, onShare }) {
   const [timeLeft, setTimeLeft] = useState({
@@ -173,13 +174,13 @@ export default function ActiveTask({ isBookmarked, onToggleBookmark, onShare }) 
             Start Learning Now
             <ExternalLink className="w-4 h-4" />
           </a>
-          <a
-            href="#stepper"
+          <Link
+            href="/guide"
             className="btn-secondary flex-1 py-3.5 text-center text-sm font-semibold rounded-2xl flex items-center justify-center gap-2"
           >
             View Stepper Guide
             <Clock className="w-4 h-4" />
-          </a>
+          </Link>
         </div>
       </div>
     </div>

@@ -63,7 +63,7 @@ export default function Timeline() {
   return (
     <div id="timeline" className="rounded-3xl border border-gray-200/80 dark:border-dark-border/40 bg-white dark:bg-dark-card p-6 sm:p-8 shadow-sm">
       <span className="px-3 py-1 bg-gfg-green/10 text-gfg-green dark:text-emerald-400 text-xs font-bold rounded-full">
-        Roadmap Tracking
+        Task Milestones
       </span>
       <h3 className="text-2xl font-extrabold text-gray-800 dark:text-white mt-2 mb-8">
         Task & Program Timeline

@@ -1,129 +1,20 @@
 import Head from 'next/head'
-import { useState, useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import InteractiveGuide from '../components/InteractiveGuide'
 import Sidebar from '../components/Sidebar'
 import Footer from '../components/Footer'
-import { BookOpen, Sparkles, Terminal, X, Search, AlertCircle, Play } from 'lucide-react'
+import { AlertCircle } from 'lucide-react'
 import Link from 'next/link'
 
 export default function GuidePage() {
-  const [isDarkMode, setIsDarkMode] = useState(false)
-  const [isSearchOpen, setIsSearchOpen] = useState(false)
-  const [searchQuery, setSearchQuery] = useState('')
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme')
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-      setIsDarkMode(true)
-      document.documentElement.classList.add('dark')
-    } else {
-      setIsDarkMode(false)
-      document.documentElement.classList.remove('dark')
-    }
-  }, [])
-
-  const toggleDarkMode = () => {
-    if (isDarkMode) {
-      document.documentElement.classList.remove('dark')
-      localStorage.setItem('theme', 'light')
-      setIsDarkMode(false)
-    } else {
-      document.documentElement.classList.add('dark')
-      localStorage.setItem('theme', 'dark')
-      setIsDarkMode(true)
-    }
-  }
-
-  // Search DB
-  const searchDatabase = [
-    { type: 'Task', title: 'MongoDB Skill Badges Challenge', url: '/tasks', text: 'MongoDB Skill Badges Challenge 250 Points Active Due 28 July 2026 gfgcdn.com/tu/vc5/' },
-    { type: 'Announcement', title: 'Welcome to Campus Mantri 2026', url: '/announcements', text: 'Welcome to Campus Mantri 2026 Orientation session Oath ceremony Team GeeksforGeeks' },
-    { type: 'Guide Step 1', title: 'Sign In / Register GFG', url: '/guide', text: 'Create or login to your GeeksforGeeks account official registration link visit website' },
-    { type: 'Resource', title: 'Official Campus Portal Dashboard', url: '/resources', text: 'Access official dashboard submit proof rankings points tallies login' },
-  ]
-
-  const filteredResults = searchQuery
-    ? searchDatabase.filter((item) =>
-        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.text.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : []
-
   return (
     <>
       <Head>
-        <title>Roadmap Guide - Campus Mantri Hub</title>
-        <meta name="description" content="A step-by-step onboarding guide for GeeksforGeeks Campus Mantri 2026 program and MongoDB training challenge." />
+        <title>MongoDB Task Guide - Campus Mantri Hub</title>
+        <meta name="description" content="A step-by-step task guide for the GeeksforGeeks Campus Mantri 2026 program and MongoDB training challenge." />
       </Head>
 
-      <Navbar
-        isDarkMode={isDarkMode}
-        onToggleDarkMode={toggleDarkMode}
-        onOpenSearch={() => setIsSearchOpen(true)}
-      />
-
-      {/* Command Palette Search Modal */}
-      {isSearchOpen && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-start justify-center pt-[15vh] px-4">
-          <div className="bg-white dark:bg-dark-card w-full max-w-lg rounded-3xl border border-gray-150 dark:border-dark-border/40 shadow-2xl overflow-hidden animate-fade-up">
-            <div className="p-4 border-b border-gray-100 dark:border-dark-border/40 flex items-center gap-3">
-              <Search className="w-5 h-5 text-gray-400" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search tasks, guides..."
-                className="w-full bg-transparent border-0 outline-none text-sm text-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
-                autoFocus
-              />
-              <button
-                onClick={() => {
-                  setIsSearchOpen(false)
-                  setSearchQuery('')
-                }}
-                className="p-1 text-gray-400 hover:text-gray-650"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <div className="max-h-[300px] overflow-y-auto p-2">
-              {searchQuery === '' ? (
-                <div className="p-6 text-center text-xs text-gray-455 dark:text-gray-500 font-bold uppercase tracking-wider">
-                  Type to search...
-                </div>
-              ) : filteredResults.length > 0 ? (
-                <div className="space-y-1">
-                  {filteredResults.map((item, idx) => (
-                    <Link
-                      key={idx}
-                      href={item.url}
-                      onClick={() => setIsSearchOpen(false)}
-                      className="w-full text-left p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-dark-border/20 flex items-center justify-between group transition-colors"
-                    >
-                      <div>
-                        <span className="text-[10px] font-bold text-gfg-green dark:text-emerald-450 uppercase block mb-1">
-                          {item.type}
-                        </span>
-                        <span className="text-sm font-semibold text-gray-800 dark:text-white group-hover:text-gfg-green dark:group-hover:text-emerald-400 transition-colors">
-                          {item.title}
-                        </span>
-                      </div>
-                      <span className="text-xs text-gray-400 group-hover:text-gray-500">Go ↗</span>
-                    </Link>
-                  ))}
-                </div>
-              ) : (
-                <div className="p-6 text-center text-sm text-gray-500 dark:text-gray-400">
-                  No matching results found for <span className="font-bold">&quot;{searchQuery}&quot;</span>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+      <Navbar />
 
       {/* Main Content */}
       <div className="min-h-screen bg-gradient-to-br from-gfg-light/30 via-white to-emerald-50/10 dark:from-dark-bg dark:via-dark-bg dark:to-dark-card/10 pt-24 pb-16 transition-colors duration-300">
@@ -132,13 +23,13 @@ export default function GuidePage() {
           {/* Header Fold */}
           <div className="mb-10 text-center sm:text-left">
             <span className="px-3 py-1 bg-blue-500/10 text-blue-650 dark:text-blue-400 text-xs font-bold rounded-full">
-              Roadmap Guide
+              MongoDB Task Guide
             </span>
             <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-800 dark:text-white mt-3">
-              Onboarding Walkthrough
+              Task Guide for MongoDB Challenge
             </h1>
             <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 mt-2 max-w-xl">
-              Follow this step-by-step interactive stepper to complete the MongoDB Badging challenge and register your credits.
+              Follow this step-by-step interactive stepper to complete the MongoDB Skill Badges Challenge and submit your proof.
             </p>
           </div>
 

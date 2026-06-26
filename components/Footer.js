@@ -1,4 +1,5 @@
 import { Award, Heart, MessageSquare, ExternalLink, Terminal } from 'lucide-react'
+import Link from 'next/link'
 
 const LinkedinIcon = (props) => (
   <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
@@ -33,15 +34,15 @@ export default function Footer() {
           <div className="space-y-4">
             <h4 className="text-sm font-extrabold text-white uppercase tracking-wider">Quick Navigation</h4>
             <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm">
-              <a href="#announcements" className="hover:text-gfg-green dark:hover:text-emerald-400 transition-colors">Announcements</a>
-              <a href="#tasks" className="hover:text-gfg-green dark:hover:text-emerald-400 transition-colors">Active Task</a>
-              <a href="#stepper" className="hover:text-gfg-green dark:hover:text-emerald-400 transition-colors">Roadmap Guide</a>
-              <a href="#proof" className="hover:text-gfg-green dark:hover:text-emerald-400 transition-colors">Proof Submission</a>
+              <Link href="/announcements" className="hover:text-gfg-green dark:hover:text-emerald-450 transition-colors">Announcements</Link>
+              <Link href="/tasks" className="hover:text-gfg-green dark:hover:text-emerald-450 transition-colors">Active Task</Link>
+              <Link href="/guide" className="hover:text-gfg-green dark:hover:text-emerald-455 transition-colors">Task Guide</Link>
+              <Link href="/proof" className="hover:text-gfg-green dark:hover:text-emerald-450 transition-colors">Proof Submission</Link>
               <a href="https://campus-portal.geeksforgeeks.org/" target="_blank" rel="noopener noreferrer" className="hover:text-gfg-green dark:hover:text-emerald-400 transition-colors flex items-center gap-1">
                 Portal
                 <ExternalLink className="w-3 h-3" />
               </a>
-              <a href="#faqs" className="hover:text-gfg-green dark:hover:text-emerald-400 transition-colors">FAQs</a>
+              <Link href="/resources#faqs" className="hover:text-gfg-green dark:hover:text-emerald-450 transition-colors">FAQs</Link>
             </div>
           </div>
 
@@ -49,7 +50,7 @@ export default function Footer() {
           <div className="space-y-4">
             <h4 className="text-sm font-extrabold text-white uppercase tracking-wider">Let&apos;s Connect</h4>
             <p className="text-xs text-gray-500 leading-relaxed">
-              If you have any doubts regarding course progress sync or proof file validation, reach out immediately.
+              If you have any doubts regarding task requirements or portals, feel free to reach out. Please follow me on GeeksforGeeks to support my Campus Mantri profile!
             </p>
             <div className="flex gap-3">
               <a

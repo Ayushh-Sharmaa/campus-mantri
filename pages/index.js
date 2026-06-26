@@ -5,76 +5,17 @@ import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
 import ProfileCards from '../components/ProfileCards'
 import Footer from '../components/Footer'
-import { Award, Bell, BookOpen, Compass, Search, X, ArrowRight, ShieldCheck, HelpCircle, Terminal } from 'lucide-react'
+import { Award, Bell, BookOpen, Compass, ArrowRight, ShieldCheck, Terminal, FileCheck } from 'lucide-react'
 
 export default function Home() {
-  const [isDarkMode, setIsDarkMode] = useState(false)
-  const [isSearchOpen, setIsSearchOpen] = useState(false)
-  const [searchQuery, setSearchQuery] = useState('')
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme')
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-      setIsDarkMode(true)
-      document.documentElement.classList.add('dark')
-    } else {
-      setIsDarkMode(false)
-      document.documentElement.classList.remove('dark')
-    }
-
     const timer = setTimeout(() => {
       setLoading(false)
-    }, 800)
-
-    const handleKeyDown = (e) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault()
-        setIsSearchOpen(true)
-      }
-    }
-    window.addEventListener('keydown', handleKeyDown)
-    return () => {
-      clearTimeout(timer)
-      window.removeEventListener('keydown', handleKeyDown)
-    }
+    }, 600)
+    return () => clearTimeout(timer)
   }, [])
-
-  const toggleDarkMode = () => {
-    if (isDarkMode) {
-      document.documentElement.classList.remove('dark')
-      localStorage.setItem('theme', 'light')
-      setIsDarkMode(false)
-    } else {
-      document.documentElement.classList.add('dark')
-      localStorage.setItem('theme', 'dark')
-      setIsDarkMode(true)
-    }
-  }
-
-  // All searchable content database
-  const searchDatabase = [
-    { type: 'Task', title: 'MongoDB Skill Badges Challenge', url: '/tasks', text: 'MongoDB Skill Badges Challenge 250 Points Active Due 28 July 2026 gfgcdn.com/tu/vc5/' },
-    { type: 'Announcement', title: 'Welcome to Campus Mantri 2026', url: '/announcements', text: 'Welcome to Campus Mantri 2026 Orientation session Oath ceremony Team GeeksforGeeks' },
-    { type: 'Guide Step 1', title: 'Sign In / Register GFG', url: '/guide', text: 'Create or login to your GeeksforGeeks account official registration link visit website' },
-    { type: 'Guide Step 2', title: 'Register for MongoDB', url: '/guide', text: 'Register for MongoDB learning paths coupon code form student developer' },
-    { type: 'Guide Step 3', title: 'Choose Learning Path', url: '/guide', text: 'MongoDB Basics Shell CRUD Operators Data Modeling Schema Indexing Query Performance' },
-    { type: 'Guide Step 4', title: 'Watch Lessons Fully', url: '/guide', text: 'Videos must be watched fully without skipping for progress to count' },
-    { type: 'Guide Step 5', title: 'Complete All Modules', url: '/guide', text: 'Course completion overall progress badges unlock automatically finishing lessons' },
-    { type: 'Guide Step 6', title: 'Earn MongoDB Skill Badge', url: '/guide', text: 'Receive official MongoDB Academy skill badge credential certificate confetti' },
-    { type: 'Resource', title: 'Official Campus Portal Dashboard', url: '/resources', text: 'Access official dashboard submit proof rankings points tallies login' },
-    { type: 'Resource', title: 'MongoDB Learning Portal Registry', url: '/resources', text: 'MongoDB Learning path registration free courses student registry Academy' },
-    { type: 'FAQ', title: 'Is the program free?', url: '/resources', text: 'Collaboration between GFG and MongoDB is 100% free selected Campus Mantris' },
-    { type: 'FAQ', title: 'How to claim my points?', url: '/resources', text: 'Screenshot MongoDB Dashboard course completion badge certificate merge single PDF upload GFG portal' },
-  ]
-
-  const filteredResults = searchQuery
-    ? searchDatabase.filter((item) =>
-        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.text.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : []
 
   const directoryCards = [
     {
@@ -88,14 +29,24 @@ export default function Home() {
       iconColor: 'text-gfg-green dark:text-emerald-400 bg-gfg-green/10 dark:bg-emerald-950/40',
     },
     {
-      title: 'Roadmap & Guide',
+      title: 'MongoDB Task Guide',
       badge: '6 Steps',
       subtitle: 'Interactive Stepper',
-      description: 'An onboarding walkthrough built to help you sync your registration code, track video lectures, finish practice tests, and claim your credential.',
+      description: 'An interactive task guide built to help you sync your registration code, track video lectures, finish practice tests, and claim your badge.',
       link: '/guide',
       color: 'border-blue-200/80 hover:border-blue-500 dark:border-dark-border/40 dark:hover:border-blue-500',
       icon: BookOpen,
       iconColor: 'text-blue-550 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40',
+    },
+    {
+      title: 'Proof Submission',
+      badge: 'Validation',
+      subtitle: 'Checklist & Uploads',
+      description: 'Access the submission requirements checklist, prepare screenshots of your course dashboard and badge credential, and find GFG portal links.',
+      link: '/proof',
+      color: 'border-teal-200/80 hover:border-teal-500 dark:border-dark-border/40 dark:hover:border-teal-500',
+      icon: FileCheck,
+      iconColor: 'text-teal-600 dark:text-teal-400 bg-teal-50 dark:bg-teal-950/40',
     },
     {
       title: 'Announcements',
@@ -105,7 +56,7 @@ export default function Home() {
       link: '/announcements',
       color: 'border-purple-200/80 hover:border-purple-500 dark:border-dark-border/40 dark:hover:border-purple-500',
       icon: Bell,
-      iconColor: 'text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/40',
+      iconColor: 'text-purple-650 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/40',
     },
     {
       title: 'Resources & FAQs',
@@ -144,81 +95,10 @@ export default function Home() {
         <meta name="description" content="Welcome to the GeeksforGeeks Campus Mantri 2026 Resource Hub. Access active tasks, guides, announcements, and FAQs." />
       </Head>
 
-      <Navbar
-        isDarkMode={isDarkMode}
-        onToggleDarkMode={toggleDarkMode}
-        onOpenSearch={() => setIsSearchOpen(true)}
-      />
-
-      {/* Command Palette Search Modal */}
-      {isSearchOpen && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-start justify-center pt-[15vh] px-4">
-          <div className="bg-white dark:bg-dark-card w-full max-w-lg rounded-3xl border border-gray-150 dark:border-dark-border/40 shadow-2xl overflow-hidden animate-fade-up">
-            <div className="p-4 border-b border-gray-100 dark:border-dark-border/40 flex items-center gap-3">
-              <Search className="w-5 h-5 text-gray-400" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search tasks, guides, FAQs..."
-                className="w-full bg-transparent border-0 outline-none text-sm text-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
-                autoFocus
-              />
-              <button
-                onClick={() => {
-                  setIsSearchOpen(false)
-                  setSearchQuery('')
-                }}
-                className="p-1 text-gray-400 hover:text-gray-650"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <div className="max-h-[300px] overflow-y-auto p-2">
-              {searchQuery === '' ? (
-                <div className="p-6 text-center text-xs text-gray-450 dark:text-gray-500 font-bold uppercase tracking-wider">
-                  Type something to search...
-                </div>
-              ) : filteredResults.length > 0 ? (
-                <div className="space-y-1">
-                  {filteredResults.map((item, idx) => (
-                    <Link
-                      key={idx}
-                      href={item.url}
-                      onClick={() => setIsSearchOpen(false)}
-                      className="w-full text-left p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-dark-border/20 flex items-center justify-between group transition-colors"
-                    >
-                      <div>
-                        <span className="text-[10px] font-bold text-gfg-green dark:text-emerald-450 uppercase block mb-1">
-                          {item.type}
-                        </span>
-                        <span className="text-sm font-semibold text-gray-800 dark:text-white group-hover:text-gfg-green dark:group-hover:text-emerald-400 transition-colors">
-                          {item.title}
-                        </span>
-                      </div>
-                      <span className="text-xs text-gray-400 group-hover:text-gray-500">Go ↗</span>
-                    </Link>
-                  ))}
-                </div>
-              ) : (
-                <div className="p-6 text-center text-sm text-gray-500 dark:text-gray-400">
-                  No matching results found for <span className="font-bold">&quot;{searchQuery}&quot;</span>
-                </div>
-              )}
-            </div>
-
-            <div className="p-3 bg-gray-50 dark:bg-dark-border/20 border-t border-gray-100 dark:border-dark-border/30 flex justify-between text-[10px] text-gray-450 dark:text-gray-500 font-bold uppercase px-4">
-              <span>ESC to close</span>
-              <span>Command Palette</span>
-            </div>
-          </div>
-        </div>
-      )}
+      <Navbar />
 
       {/* Hero Section */}
       <Hero onScrollToSection={(id) => {
-        // Redirect to subpages instead of local anchors
         if (id === 'tasks') window.location.href = '/tasks'
         else if (id === 'announcements') window.location.href = '/announcements'
         else if (id === 'resources') window.location.href = '/resources'
@@ -246,7 +126,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {directoryCards.map((card, idx) => {
               const Icon = card.icon
               return (
@@ -260,13 +140,13 @@ export default function Home() {
                       <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${card.iconColor}`}>
                         <Icon className="w-6 h-6" />
                       </div>
-                      <span className="px-3 py-1 bg-gray-50 dark:bg-dark-border/40 text-gray-600 dark:text-gray-300 text-xs font-bold rounded-lg border border-gray-100 dark:border-dark-border/30">
+                      <span className="px-3 py-1 bg-gray-50 dark:bg-dark-border/40 text-gray-650 dark:text-gray-300 text-xs font-bold rounded-lg border border-gray-100 dark:border-dark-border/30">
                         {card.badge}
                       </span>
                     </div>
 
                     <div>
-                      <span className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider block mb-1">
+                      <span className="text-xs font-semibold text-gray-400 dark:text-gray-550 uppercase tracking-wider block mb-1">
                         {card.subtitle}
                       </span>
                       <h3 className="text-xl font-bold text-gray-850 dark:text-white group-hover:text-gfg-green dark:group-hover:text-emerald-450 transition-colors">

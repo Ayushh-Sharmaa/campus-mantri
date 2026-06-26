@@ -1,44 +1,44 @@
 import Head from 'next/head'
 import Navbar from '../components/Navbar'
-import QuickResources from '../components/QuickResources'
+import ProofSubmission from '../components/ProofSubmission'
 import Sidebar from '../components/Sidebar'
 import Footer from '../components/Footer'
 
-export default function ResourcesPage() {
+export default function ProofPage() {
   return (
     <>
       <Head>
-        <title>Resources & FAQs - Campus Mantri Hub</title>
-        <meta name="description" content="Useful resources, community links, and frequently asked questions for GeeksforGeeks Campus Mantri program." />
+        <title>Proof Submission - Campus Mantri Hub</title>
+        <meta name="description" content="Submit your MongoDB challenge completion proof to the GeeksforGeeks Campus Mantri portal." />
       </Head>
 
       <Navbar />
 
-      {/* Main Content Area */}
+      {/* Main Content */}
       <div className="min-h-screen bg-gradient-to-br from-gfg-light/30 via-white to-emerald-50/10 dark:from-dark-bg dark:via-dark-bg dark:to-dark-card/10 pt-24 pb-16 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          {/* Header fold */}
+          {/* Header Fold */}
           <div className="mb-10 text-center sm:text-left">
-            <span className="px-3 py-1 bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-bold rounded-full">
-              Help Center
+            <span className="px-3 py-1 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-bold rounded-full">
+              Proof Submission Hub
             </span>
             <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-800 dark:text-white mt-3">
-              Resources & Support
+              Submit Task Verification Proof
             </h1>
             <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 mt-2 max-w-xl">
-              Access directory repositories, connect with coordinates, and find explanations for badge challenges.
+              Upload your validation documents to the official Campus Mantri portal and check off steps to ensure approval.
             </p>
           </div>
 
           {/* Grid Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Left Content Column */}
-            <div className="lg:col-span-2 space-y-8">
-              <QuickResources />
+            {/* Checklist Column */}
+            <div className="lg:col-span-2 space-y-6">
+              <ProofSubmission />
             </div>
 
-            {/* Right Sidebar Column */}
+            {/* Sidebar Column */}
             <div className="lg:col-span-1">
               <div className="sticky top-24">
                 <Sidebar onScrollToSection={(id) => {
