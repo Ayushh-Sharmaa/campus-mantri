@@ -68,21 +68,21 @@ export default function Navbar({ isDarkMode, onToggleDarkMode, onOpenSearch }) {
 
           {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-6">
-            <a href="#announcements" className="text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-gfg-green dark:hover:text-emerald-400 transition-colors">
+            <Link href="/announcements" className="text-sm font-bold text-gray-650 dark:text-gray-305 hover:text-gfg-green dark:hover:text-emerald-450 transition-colors">
               Announcements
-            </a>
-            <a href="#tasks" className="text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-gfg-green dark:hover:text-emerald-400 transition-colors">
+            </Link>
+            <Link href="/tasks" className="text-sm font-bold text-gray-655 dark:text-gray-305 hover:text-gfg-green dark:hover:text-emerald-450 transition-colors">
               Active Task
-            </a>
-            <a href="#stepper" className="text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-gfg-green dark:hover:text-emerald-400 transition-colors">
+            </Link>
+            <Link href="/guide" className="text-sm font-bold text-gray-650 dark:text-gray-305 hover:text-gfg-green dark:hover:text-emerald-450 transition-colors">
               Roadmap Guide
-            </a>
-            <a href="#proof" className="text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-gfg-green dark:hover:text-emerald-400 transition-colors">
+            </Link>
+            <Link href="/tasks#proof" className="text-sm font-bold text-gray-650 dark:text-gray-305 hover:text-gfg-green dark:hover:text-emerald-450 transition-colors">
               Proof Submission
-            </a>
-            <a href="#resources" className="text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-gfg-green dark:hover:text-emerald-400 transition-colors">
+            </Link>
+            <Link href="/resources" className="text-sm font-bold text-gray-650 dark:text-gray-305 hover:text-gfg-green dark:hover:text-emerald-450 transition-colors">
               Resources
-            </a>
+            </Link>
           </div>
 
           {/* Right Action Icons */}
@@ -90,7 +90,7 @@ export default function Navbar({ isDarkMode, onToggleDarkMode, onOpenSearch }) {
             {/* Search Trigger */}
             <button
               onClick={onOpenSearch}
-              className="p-2 bg-gray-50 hover:bg-gray-100 dark:bg-dark-border/20 dark:hover:bg-dark-border/40 text-gray-505 dark:text-gray-300 border border-gray-100 dark:border-dark-border/30 rounded-xl transition-all"
+              className="p-2 bg-gray-50 hover:bg-gray-100 dark:bg-dark-border/20 dark:hover:bg-dark-border/40 text-gray-500 dark:text-gray-300 border border-gray-100 dark:border-dark-border/30 rounded-xl transition-all"
               title="Search Hub (Cmd+K)"
             >
               <Search className="w-4 h-4" />
@@ -99,7 +99,7 @@ export default function Navbar({ isDarkMode, onToggleDarkMode, onOpenSearch }) {
             {/* Theme Toggle */}
             <button
               onClick={onToggleDarkMode}
-              className="p-2 bg-gray-50 hover:bg-gray-100 dark:bg-dark-border/20 dark:hover:bg-dark-border/40 text-gray-505 dark:text-gray-300 border border-gray-100 dark:border-dark-border/30 rounded-xl transition-all"
+              className="p-2 bg-gray-50 hover:bg-gray-100 dark:bg-dark-border/20 dark:hover:bg-dark-border/40 text-gray-500 dark:text-gray-300 border border-gray-100 dark:border-dark-border/30 rounded-xl transition-all"
               title={isDarkMode ? 'Light Mode' : 'Dark Mode'}
             >
               {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
@@ -151,41 +151,41 @@ export default function Navbar({ isDarkMode, onToggleDarkMode, onOpenSearch }) {
       {/* Mobile Drawer Menu */}
       {isOpen && (
         <div className="md:hidden border-t border-gray-100 dark:border-dark-border/40 bg-white/95 dark:bg-dark-bg/95 backdrop-blur-md px-4 pt-2 pb-6 space-y-3">
-          <a
-            href="#announcements"
+          <Link
+            href="/announcements"
             onClick={() => setIsOpen(false)}
-            className="block text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-gfg-green py-2 border-b border-gray-50 dark:border-dark-border/10"
+            className="block text-sm font-bold text-gray-650 dark:text-gray-300 hover:text-gfg-green py-2 border-b border-gray-50 dark:border-dark-border/10"
           >
             Announcements
-          </a>
-          <a
-            href="#tasks"
+          </Link>
+          <Link
+            href="/tasks"
             onClick={() => setIsOpen(false)}
-            className="block text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-gfg-green py-2 border-b border-gray-50 dark:border-dark-border/10"
+            className="block text-sm font-bold text-gray-650 dark:text-gray-300 hover:text-gfg-green py-2 border-b border-gray-50 dark:border-dark-border/10"
           >
             Active Task
-          </a>
-          <a
-            href="#stepper"
+          </Link>
+          <Link
+            href="/guide"
             onClick={() => setIsOpen(false)}
-            className="block text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-gfg-green py-2 border-b border-gray-50 dark:border-dark-border/10"
+            className="block text-sm font-bold text-gray-650 dark:text-gray-300 hover:text-gfg-green py-2 border-b border-gray-50 dark:border-dark-border/10"
           >
             Roadmap Guide
-          </a>
-          <a
-            href="#proof"
+          </Link>
+          <Link
+            href="/tasks#proof"
             onClick={() => setIsOpen(false)}
-            className="block text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-gfg-green py-2 border-b border-gray-50 dark:border-dark-border/10"
+            className="block text-sm font-bold text-gray-650 dark:text-gray-300 hover:text-gfg-green py-2 border-b border-gray-50 dark:border-dark-border/10"
           >
             Proof Submission
-          </a>
-          <a
-            href="#resources"
+          </Link>
+          <Link
+            href="/resources"
             onClick={() => setIsOpen(false)}
-            className="block text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-gfg-green py-2 border-b border-gray-50 dark:border-dark-border/10"
+            className="block text-sm font-bold text-gray-655 dark:text-gray-300 hover:text-gfg-green py-2 border-b border-gray-50 dark:border-dark-border/10"
           >
             Resources
-          </a>
+          </Link>
 
           <div className="pt-4 flex gap-3">
             <button

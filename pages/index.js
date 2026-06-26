@@ -1,30 +1,19 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
 import ProfileCards from '../components/ProfileCards'
-import ActiveTask from '../components/ActiveTask'
-import InteractiveGuide from '../components/InteractiveGuide'
-import ProofSubmission from '../components/ProofSubmission'
-import Timeline from '../components/Timeline'
-import Sidebar from '../components/Sidebar'
-import QuickResources from '../components/QuickResources'
 import Footer from '../components/Footer'
-import { Bell, Award, Calendar, ExternalLink, ChevronDown, ChevronUp, Search, X, ArrowUp, Copy, Check, Sparkles, Terminal } from 'lucide-react'
+import { Award, Bell, BookOpen, Compass, Search, X, ArrowRight, ShieldCheck, HelpCircle, Terminal } from 'lucide-react'
 
 export default function Home() {
   const [isDarkMode, setIsDarkMode] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
-  const [isBookmarked, setIsBookmarked] = useState(false)
-  const [announcementExpanded, setAnnouncementExpanded] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [showScrollTop, setShowScrollTop] = useState(false)
-  const [copied, setCopied] = useState(false)
 
-  // Initialize Dark Mode and Load screen simulation
   useEffect(() => {
-    // Check local storage or system preference
     const savedTheme = localStorage.getItem('theme')
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
     if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
@@ -35,23 +24,10 @@ export default function Home() {
       document.documentElement.classList.remove('dark')
     }
 
-    // Check bookmarks
-    const savedBookmark = localStorage.getItem('task_bookmarked')
-    if (savedBookmark === 'true') {
-      setIsBookmarked(true)
-    }
-
-    // Simulate loading animation
     const timer = setTimeout(() => {
       setLoading(false)
-    }, 850)
+    }, 800)
 
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 400)
-    }
-    window.addEventListener('scroll', handleScroll)
-
-    // Keyboard shortcut for search (Cmd+K or Ctrl+K)
     const handleKeyDown = (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault()
@@ -59,10 +35,8 @@ export default function Home() {
       }
     }
     window.addEventListener('keydown', handleKeyDown)
-
     return () => {
       clearTimeout(timer)
-      window.removeEventListener('scroll', handleScroll)
       window.removeEventListener('keydown', handleKeyDown)
     }
   }, [])
@@ -79,41 +53,20 @@ export default function Home() {
     }
   }
 
-  const toggleBookmark = () => {
-    const nextVal = !isBookmarked
-    setIsBookmarked(nextVal)
-    localStorage.setItem('task_bookmarked', String(nextVal))
-  }
-
-  const handleShare = () => {
-    navigator.clipboard.writeText(window.location.href)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
-
-  const scrollToDeleteSection = (id) => {
-    const element = document.getElementById(id)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-    }
-    setIsSearchOpen(false)
-  }
-
   // All searchable content database
   const searchDatabase = [
-    { type: 'Task', title: 'MongoDB Skill Badges Challenge', category: 'tasks', text: 'MongoDB Skill Badges Challenge 250 Points Active Due 28 July 2026 gfgcdn.com/tu/vc5/' },
-    { type: 'Announcement', title: 'Welcome to Campus Mantri 2026', category: 'announcements', text: 'Welcome to Campus Mantri 2026 Orientation session Oath ceremony Team GeeksforGeeks' },
-    { type: 'Guide Step 1', title: 'Sign In / Register GFG', category: 'stepper', text: 'Create or login to your GeeksforGeeks account official registration link visit website' },
-    { type: 'Guide Step 2', title: 'Register for MongoDB', category: 'stepper', text: 'Register for MongoDB learning paths coupon code form student developer' },
-    { type: 'Guide Step 3', title: 'Choose Learning Path', category: 'stepper', text: 'MongoDB Basics Shell CRUD Operators Data Modeling Schema Indexing Query Performance' },
-    { type: 'Guide Step 4', title: 'Watch Lessons Fully', category: 'stepper', text: 'Videos must be watched fully without skipping for progress to count' },
-    { type: 'Guide Step 5', title: 'Complete All Modules', category: 'stepper', text: 'Course completion overall progress badges unlock automatically finishing lessons' },
-    { type: 'Guide Step 6', title: 'Earn MongoDB Skill Badge', category: 'stepper', text: 'Receive official MongoDB Academy skill badge credential certificate confetti' },
-    { type: 'Resource', title: 'Official Campus Portal Dashboard', category: 'resources', text: 'Access official dashboard submit proof rankings points tallies login' },
-    { type: 'Resource', title: 'MongoDB Learning Portal Registry', category: 'resources', text: 'MongoDB Learning path registration free courses student registry Academy' },
-    { type: 'Resource', title: "Ayush's GFG & LinkedIn Profiles", category: 'resources', text: 'Ayush Sharma profile connections solved problems coding score connect support' },
-    { type: 'FAQ', title: 'Is the program free?', category: 'resources', text: 'Collaboration between GFG and MongoDB is 100% free selected Campus Mantris' },
-    { type: 'FAQ', title: 'How to claim my points?', category: 'resources', text: 'Screenshot MongoDB Dashboard course completion badge certificate merge single PDF upload GFG portal' },
+    { type: 'Task', title: 'MongoDB Skill Badges Challenge', url: '/tasks', text: 'MongoDB Skill Badges Challenge 250 Points Active Due 28 July 2026 gfgcdn.com/tu/vc5/' },
+    { type: 'Announcement', title: 'Welcome to Campus Mantri 2026', url: '/announcements', text: 'Welcome to Campus Mantri 2026 Orientation session Oath ceremony Team GeeksforGeeks' },
+    { type: 'Guide Step 1', title: 'Sign In / Register GFG', url: '/guide', text: 'Create or login to your GeeksforGeeks account official registration link visit website' },
+    { type: 'Guide Step 2', title: 'Register for MongoDB', url: '/guide', text: 'Register for MongoDB learning paths coupon code form student developer' },
+    { type: 'Guide Step 3', title: 'Choose Learning Path', url: '/guide', text: 'MongoDB Basics Shell CRUD Operators Data Modeling Schema Indexing Query Performance' },
+    { type: 'Guide Step 4', title: 'Watch Lessons Fully', url: '/guide', text: 'Videos must be watched fully without skipping for progress to count' },
+    { type: 'Guide Step 5', title: 'Complete All Modules', url: '/guide', text: 'Course completion overall progress badges unlock automatically finishing lessons' },
+    { type: 'Guide Step 6', title: 'Earn MongoDB Skill Badge', url: '/guide', text: 'Receive official MongoDB Academy skill badge credential certificate confetti' },
+    { type: 'Resource', title: 'Official Campus Portal Dashboard', url: '/resources', text: 'Access official dashboard submit proof rankings points tallies login' },
+    { type: 'Resource', title: 'MongoDB Learning Portal Registry', url: '/resources', text: 'MongoDB Learning path registration free courses student registry Academy' },
+    { type: 'FAQ', title: 'Is the program free?', url: '/resources', text: 'Collaboration between GFG and MongoDB is 100% free selected Campus Mantris' },
+    { type: 'FAQ', title: 'How to claim my points?', url: '/resources', text: 'Screenshot MongoDB Dashboard course completion badge certificate merge single PDF upload GFG portal' },
   ]
 
   const filteredResults = searchQuery
@@ -122,6 +75,49 @@ export default function Home() {
         item.text.toLowerCase().includes(searchQuery.toLowerCase())
       )
     : []
+
+  const directoryCards = [
+    {
+      title: 'Active Opportunity',
+      badge: '250 Points',
+      subtitle: 'MongoDB Skill Badge',
+      description: 'Participate in the exclusive MongoDB Academy badge challenge. Complete modules, track deadlines, and prepare validation proof screenshots.',
+      link: '/tasks',
+      color: 'border-emerald-200/80 hover:border-gfg-green dark:border-dark-border/40 dark:hover:border-emerald-500',
+      icon: Award,
+      iconColor: 'text-gfg-green dark:text-emerald-400 bg-gfg-green/10 dark:bg-emerald-950/40',
+    },
+    {
+      title: 'Roadmap & Guide',
+      badge: '6 Steps',
+      subtitle: 'Interactive Stepper',
+      description: 'An onboarding walkthrough built to help you sync your registration code, track video lectures, finish practice tests, and claim your credential.',
+      link: '/guide',
+      color: 'border-blue-200/80 hover:border-blue-500 dark:border-dark-border/40 dark:hover:border-blue-500',
+      icon: BookOpen,
+      iconColor: 'text-blue-550 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40',
+    },
+    {
+      title: 'Announcements',
+      badge: 'Orientation',
+      subtitle: 'Updates & Ceremony',
+      description: 'Keep track of the official welcomes, upcoming orientation sessions, calendar invitations, and the special Campus Mantri Oath Ceremony details.',
+      link: '/announcements',
+      color: 'border-purple-200/80 hover:border-purple-500 dark:border-dark-border/40 dark:hover:border-purple-500',
+      icon: Bell,
+      iconColor: 'text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/40',
+    },
+    {
+      title: 'Resources & FAQs',
+      badge: 'Help Desk',
+      subtitle: 'External Tools',
+      description: 'Find contact profiles for support, join community chats, access portal login dashboards, and review our answers to frequently asked questions.',
+      link: '/resources',
+      color: 'border-amber-200/80 hover:border-amber-500 dark:border-dark-border/40 dark:hover:border-amber-500',
+      icon: Compass,
+      iconColor: 'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40',
+    },
+  ]
 
   if (loading) {
     return (
@@ -145,28 +141,14 @@ export default function Home() {
     <>
       <Head>
         <title>GFG Campus Mantri 2026 Resource Hub</title>
-        <meta name="description" content="Everything a GeeksforGeeks Campus Mantri 2026 needs in one place. Explore MongoDB Skill Badge tasks, timelines, guides, and resources." />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <meta name="description" content="Welcome to the GeeksforGeeks Campus Mantri 2026 Resource Hub. Access active tasks, guides, announcements, and FAQs." />
       </Head>
 
-      {/* Navbar Context Providers */}
       <Navbar
         isDarkMode={isDarkMode}
         onToggleDarkMode={toggleDarkMode}
         onOpenSearch={() => setIsSearchOpen(true)}
       />
-
-      {/* Floating Action Button (FAB) Scroll to top */}
-      {showScrollTop && (
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-6 right-6 z-40 p-3 bg-gfg-green dark:bg-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-500 text-white rounded-2xl shadow-xl transition-all hover:scale-105 active:scale-95"
-          title="Scroll to Top"
-        >
-          <ArrowUp className="w-5 h-5" />
-        </button>
-      )}
 
       {/* Command Palette Search Modal */}
       {isSearchOpen && (
@@ -178,7 +160,7 @@ export default function Home() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search tasks, guides, FAQs, resources..."
+                placeholder="Search tasks, guides, FAQs..."
                 className="w-full bg-transparent border-0 outline-none text-sm text-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
                 autoFocus
               />
@@ -201,9 +183,10 @@ export default function Home() {
               ) : filteredResults.length > 0 ? (
                 <div className="space-y-1">
                   {filteredResults.map((item, idx) => (
-                    <button
+                    <Link
                       key={idx}
-                      onClick={() => scrollToDeleteSection(item.category)}
+                      href={item.url}
+                      onClick={() => setIsSearchOpen(false)}
                       className="w-full text-left p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-dark-border/20 flex items-center justify-between group transition-colors"
                     >
                       <div>
@@ -214,8 +197,8 @@ export default function Home() {
                           {item.title}
                         </span>
                       </div>
-                      <span className="text-xs text-gray-400 group-hover:text-gray-500">Jump ↗</span>
-                    </button>
+                      <span className="text-xs text-gray-400 group-hover:text-gray-500">Go ↗</span>
+                    </Link>
                   ))}
                 </div>
               ) : (
@@ -227,121 +210,108 @@ export default function Home() {
 
             <div className="p-3 bg-gray-50 dark:bg-dark-border/20 border-t border-gray-100 dark:border-dark-border/30 flex justify-between text-[10px] text-gray-450 dark:text-gray-500 font-bold uppercase px-4">
               <span>ESC to close</span>
-              <span>Use arrows to navigate</span>
+              <span>Command Palette</span>
             </div>
           </div>
         </div>
       )}
 
-      {/* Hero section */}
-      <Hero onScrollToSection={scrollToDeleteSection} />
+      {/* Hero Section */}
+      <Hero onScrollToSection={(id) => {
+        // Redirect to subpages instead of local anchors
+        if (id === 'tasks') window.location.href = '/tasks'
+        else if (id === 'announcements') window.location.href = '/announcements'
+        else if (id === 'resources') window.location.href = '/resources'
+      }} />
 
-      {/* Main Grid Dashboard layout */}
+      {/* Main Hub deck */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         
-        {/* Connect With Me section at the top of the grid */}
+        {/* Profile Counter Cards */}
         <ProfileCards />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-6">
-          {/* Main Dashboard Left Column (occupies 2 cols on lg screens) */}
-          <div className="lg:col-span-2 space-y-8">
-            
-            {/* Announcements Card */}
-            <div id="announcements" className="relative overflow-hidden rounded-3xl border border-gray-200/80 dark:border-dark-border/40 bg-white dark:bg-dark-card p-6 sm:p-8 shadow-sm">
-              <div className="flex justify-between items-start gap-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-gfg-green/10 dark:bg-emerald-950/40 text-gfg-green dark:text-emerald-400 flex items-center justify-center">
-                    <Bell className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="px-2 py-0.5 bg-gfg-green/10 text-gfg-green dark:text-emerald-400 text-[10px] font-bold rounded uppercase">
-                        Official
-                      </span>
-                      <span className="text-[10px] text-gray-400 dark:text-gray-500 font-bold uppercase">
-                        25 June 2026
+        {/* Spacious Subpages Directory Grid */}
+        <div className="py-12 border-t border-gray-100 dark:border-dark-border/25 mt-10">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">
+            <div>
+              <span className="px-3 py-1 bg-gfg-green/10 text-gfg-green dark:text-emerald-400 text-xs font-bold rounded-full">
+                Portal Directory
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-800 dark:text-white mt-2">
+                Explore Your Hub
+              </h2>
+            </div>
+            <p className="text-sm text-gray-500 dark:text-gray-400 max-w-sm">
+              Use these shortcuts to access dedicated layout guides, task submission portals, and community resources.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-8">
+            {directoryCards.map((card, idx) => {
+              const Icon = card.icon
+              return (
+                <Link
+                  key={idx}
+                  href={card.link}
+                  className={`group relative p-6 sm:p-8 rounded-3xl border bg-white dark:bg-dark-card shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between ${card.color}`}
+                >
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                      <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${card.iconColor}`}>
+                        <Icon className="w-6 h-6" />
+                      </div>
+                      <span className="px-3 py-1 bg-gray-50 dark:bg-dark-border/40 text-gray-600 dark:text-gray-300 text-xs font-bold rounded-lg border border-gray-100 dark:border-dark-border/30">
+                        {card.badge}
                       </span>
                     </div>
-                    <h3 className="text-xl font-extrabold text-gray-800 dark:text-white mt-1">
-                      Welcome to Campus Mantri 2026
-                    </h3>
+
+                    <div>
+                      <span className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider block mb-1">
+                        {card.subtitle}
+                      </span>
+                      <h3 className="text-xl font-bold text-gray-850 dark:text-white group-hover:text-gfg-green dark:group-hover:text-emerald-450 transition-colors">
+                        {card.title}
+                      </h3>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-2.5 leading-relaxed">
+                        {card.description}
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <button
-                  onClick={() => setAnnouncementExpanded(!announcementExpanded)}
-                  className="p-1.5 rounded-lg border border-gray-200 dark:border-dark-border/40 text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-dark-border/30 transition-all"
-                >
-                  {announcementExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
-                </button>
-              </div>
 
-              {/* Expansion Announcement Content */}
-              <div className={`mt-6 space-y-4 text-sm text-gray-650 dark:text-gray-300 leading-relaxed border-t border-gray-100 dark:border-dark-border/20 pt-6 transition-all ${
-                announcementExpanded ? 'block animate-fade-in' : 'hidden'
-              }`}>
-                <p>
-                  Dear Campus Mantris,
-                </p>
-                <p>
-                  Welcome to the GeeksforGeeks Campus Mantri Program 2026. Congratulations on becoming a Campus Mantri. We are delighted to have you as a part of our community and look forward to an exciting journey ahead.
-                </p>
-                <p>
-                  We will soon be conducting the official Campus Mantri Orientation Session, where you will get to know everything about the program, your responsibilities, upcoming initiatives, and opportunities.
-                </p>
-                <div className="bg-emerald-50 dark:bg-emerald-950/20 border-l-4 border-gfg-green p-4 rounded-r-xl">
-                  <h4 className="font-bold text-gfg-green dark:text-emerald-400">Special Oath Ceremony</h4>
-                  <p className="text-xs text-gray-600 dark:text-gray-350 leading-relaxed mt-1">
-                    As you are now officially Campus Mantris, the orientation will also include a special Oath Ceremony, marking the beginning of your journey as representatives of GeeksforGeeks on your campus.
-                  </p>
-                </div>
-                <p>
-                  The orientation date and timings will be announced soon. Keep an eye on your dashboard for further updates.
-                </p>
-                <p className="pt-2 font-bold text-gray-700 dark:text-white">
-                  Once again, welcome aboard. We are excited to begin this journey with all of you.
-                </p>
-                <p className="text-xs text-gray-400 dark:text-gray-500 font-semibold">
-                  Team GeeksforGeeks
-                </p>
-              </div>
-
-              {!announcementExpanded && (
-                <p className="text-xs text-gray-450 dark:text-gray-450 leading-normal mt-4 line-clamp-2">
-                  Dear Campus Mantris, Welcome to the GeeksforGeeks Campus Mantri Program 2026. Congratulations on becoming a Campus Mantri. We are delighted to have you as a part of our community and look forward to...
-                </p>
-              )}
-            </div>
-
-            {/* Active Task Card */}
-            <ActiveTask
-              isBookmarked={isBookmarked}
-              onToggleBookmark={toggleBookmark}
-              onShare={handleShare}
-            />
-
-            {/* Stepper Guide */}
-            <InteractiveGuide />
-
-            {/* Proof Submission checklist */}
-            <ProofSubmission />
-
-            {/* Timeline component */}
-            <Timeline />
-
-            {/* Quick resources and FAQs Accordion */}
-            <QuickResources />
+                  <div className="flex items-center gap-1.5 text-sm font-bold text-gfg-green dark:text-emerald-400 mt-6 group-hover:translate-x-1.5 transition-transform">
+                    <span>Open Section</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </div>
+                </Link>
+              )
+            })}
           </div>
+        </div>
 
-          {/* Sidebar right Column (occupies 1 col on lg screens) */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-24">
-              <Sidebar onScrollToSection={scrollToDeleteSection} />
+        {/* Brand Banner Check */}
+        <div className="bg-gradient-to-br from-gfg-green/10 via-emerald-500/5 to-transparent rounded-3xl p-6 sm:p-8 border border-gfg-green/20 dark:border-emerald-500/10 flex flex-col sm:flex-row justify-between items-center gap-6 mt-12">
+          <div className="flex gap-4 items-start text-left">
+            <div className="w-10 h-10 rounded-xl bg-gfg-green/10 dark:bg-emerald-950/40 text-gfg-green dark:text-emerald-400 flex items-center justify-center flex-shrink-0">
+              <ShieldCheck className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="text-base font-bold text-gray-800 dark:text-white">Selected Campus Mantri Portal</h4>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 max-w-lg leading-relaxed">
+                This dashboard uses persistent local storage indicators. Your task bookmarks, onboarding progress checklists, and guide walkthrough milestones remain saved locally on your device.
+              </p>
             </div>
           </div>
+          <a
+            href="https://campus-portal.geeksforgeeks.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-6 py-3 bg-gfg-dark dark:bg-dark-border hover:bg-black dark:hover:bg-dark-border/80 text-white rounded-2xl text-xs font-bold transition-all shadow-sm shrink-0 w-full sm:w-auto text-center"
+          >
+            Access GFG Dashboard
+          </a>
         </div>
       </div>
 
-      {/* Footer */}
       <Footer />
     </>
   )
